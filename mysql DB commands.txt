@@ -1,0 +1,83 @@
+MySQL
+
+To create a database in MySQL, you use the CREATE DATABASE statement. Here is an example:
+
+CREATE DATABASE mydatabase;
+
+If you want to ensure the database does not already exist, you can add the IF NOT EXISTS clause:
+
+CREATE DATABASE IF NOT EXISTS mydatabase;
+
+
+-- Create the database
+CREATE DATABASE mydatabase;
+
+-- Optionally, you can use this database by default
+USE mydatabase;
+
+In MySQL, the DROP DATABASE statement is used to delete an existing database. Here is an example:
+
+DROP DATABASE mydatabase;
+
+If you want to ensure the database exists before attempting to drop it, you can add the IF EXISTS clause:
+
+DROP DATABASE IF EXISTS mydatabase;
+
+-- Drop the database
+DROP DATABASE mydatabase;
+
+-- Optionally, ensure it exists before dropping
+DROP DATABASE IF EXISTS mydatabase;
+
+
+In MySQL, the USE command is used to select a database to be the default for the current session. This means that any subsequent queries will operate on the selected database unless specified otherwise.
+
+USE mydatabase;
+
+In MySQL, you can list all databases using the SHOW DATABASES command:
+
+SHOW DATABASES;
+
+-- List all databases
+SHOW DATABASES;
+
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+Explanation:
+CREATE TABLE users: This starts the statement to create a table named users.
+id INT AUTO_INCREMENT PRIMARY KEY: Defines a column id of type INT that auto-increments (generates a unique value for each new row) and is the primary key of the table.
+username VARCHAR(50) NOT NULL: Defines a column username that can store up to 50 characters and cannot be NULL.
+email VARCHAR(100) NOT NULL: Defines a column email that can store up to 100 characters and cannot be NULL.
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP: Defines a column created_at of type TIMESTAMP with a default value of the current timestamp.
+
+In MySQL, AUTO_INCREMENT is used to auto-generate primary key values.
+
+MySQL uses VARCHAR for variable-length character strings, 
+
+MySQL uses INT for integers
+
+INSERT INTO users (username, email, created_at)
+VALUES ('john_doe', 'john_doe@example.com', NOW());
+
+NOW() is a MySQL function that returns the current date and time.
+
+
+
+SELECT * FROM users;
+
+SELECT username, email FROM users;
+
+SELECT * FROM users WHERE username = 'john_doe';
+
+
+
+
+
+
+

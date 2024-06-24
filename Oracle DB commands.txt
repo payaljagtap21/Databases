@@ -1,0 +1,124 @@
+Oracle
+
+First, you need to create a user, as schemas are associated with users in Oracle:
+
+CREATE USER mydatabase IDENTIFIED BY mypassword;
+
+
+Then, you need to grant the necessary privileges to the user:
+
+GRANT CONNECT, RESOURCE TO mydatabase;
+
+Key Differences
+
+In MySQL, CREATE DATABASE directly creates a database.
+
+In Oracle, creating a database involves setting up an instance and associated files, while creating a schema involves creating a user.
+
+MySQL: The user creating the database typically needs CREATE privileges.
+
+Oracle: Creating a user and granting privileges is a necessary step for schema setup.
+
+MySQL: The process is straightforward and can be done in a single command.
+
+Oracle: The process can be more involved and often requires additional configuration.
+
+-- Create the user (which corresponds to a schema)
+CREATE USER mydatabase IDENTIFIED BY mypassword;
+
+-- Grant necessary privileges to the user
+GRANT CONNECT, RESOURCE TO mydatabase;
+
+Dropping an entire database involves more steps and typically requires shutting down the instance. Dropping a schema (user) can be done with a single command but requires the CASCADE option to remove all objects.
+
+The DROP USER command with CASCADE is used to remove a schema and all its objects. Dropping an entire database instance is a more involved process.
+
+First, connect as a privileged user (e.g., SYS or SYSTEM):
+
+-- Drop the user and associated schema
+DROP USER mydatabase CASCADE;
+
+Oracle does not have a direct equivalent to the USE command. In Oracle, each connection is made to a specific database (or more precisely, to a specific instance of a database), and within that database, you can work with different schemas.
+
+To switch contexts within Oracle, you typically need to reference the schema directly in your SQL commands or reconnect using a different user that corresponds to the desired schema. You can also alter the session to change the current schema:
+
+ALTER SESSION SET CURRENT_SCHEMA = myschema;
+
+Schema context is typically handled through user connections and schema references.
+
+Oracle does not have a SHOW DATABASES command since it operates differently from MySQL. Instead, Oracle uses a single database with multiple schemas. To list all schemas (users) in Oracle, you can query the ALL_USERS view:
+
+SELECT USERNAME FROM ALL_USERS;
+
+If you need to list all tablespaces (which are more akin to MySQL databases in terms of physical storage), you can query the DBA_TABLESPACES view (assuming you have the necessary privileges):
+
+SELECT TABLESPACE_NAME FROM DBA_TABLESPACES;
+
+No direct equivalent to SHOW DATABASES since Oracle's architecture differs from MySQL.
+
+-- List all schemas (users)
+SELECT USERNAME FROM ALL_USERS;
+
+-- List all tablespaces
+SELECT TABLESPACE_NAME FROM DBA_TABLESPACES;
+
+
+CREATE TABLE users (
+    id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    username VARCHAR2(50) NOT NULL,
+    email VARCHAR2(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+Explanation:
+CREATE TABLE users: Starts the statement to create a table named users.
+id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY: Defines a column id of type NUMBER that is automatically generated as an identity (auto-incrementing) column and is the primary key of the table.
+username VARCHAR2(50) NOT NULL: Defines a column username that can store up to 50 characters and cannot be NULL.
+email VARCHAR2(100) NOT NULL: Defines a column email that can store up to 100 characters and cannot be NULL.
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP: Defines a column created_at of type TIMESTAMP with a default value of the current timestamp.
+
+MySQL uses VARCHAR for variable-length character strings, while Oracle uses VARCHAR2.
+
+MySQL uses INT for integers, while Oracle uses NUMBER.
+
+Oracle uses TIMESTAMP for date and time values, which is also supported in MySQL.
+
+In MySQL, AUTO_INCREMENT is used to auto-generate primary key values.
+
+In Oracle, GENERATED ALWAYS AS IDENTITY is used for auto-incrementing columns.
+
+INSERT INTO users (username, email, created_at)
+VALUES ('john_doe', 'john_doe@example.com', CURRENT_TIMESTAMP);
+
+ CURRENT_TIMESTAMP is an Oracle function that returns the current date and time.
+
+
+SELECT * FROM users;
+
+SELECT username, email FROM users;
+
+SELECT * FROM users WHERE username = 'john_doe';
+
+Key Similarities
+Basic Syntax: The basic structure of the SELECT statement is the same in both MySQL and Oracle.
+WHERE Clause: Both databases support the WHERE clause for filtering rows based on specific conditions.
+Aggregate Functions: Both databases support common aggregate functions like SUM, COUNT, AVG, etc., for performing calculations on selected rows.
+
+Key Differences
+Date and Time Functions: Functions like NOW() in MySQL vs SYSDATE or CURRENT_TIMESTAMP in Oracle.
+Syntax for String Operations: MySQL and Oracle might differ slightly in how they handle string operations and concatenation.
+System Functions: There are differences in how some system functions or keywords are implemented, though the core SQL functionality remains largely consistent.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
